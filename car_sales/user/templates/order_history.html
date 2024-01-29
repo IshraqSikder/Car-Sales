@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<button class="btn btn-primary m-2">
+  <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+</button>
+<button class="btn btn-info mx-2">
+  <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+</button>
+{% if orders %}
+    <div class="d-flex flex-wrap">
+        {% for i in orders %}
+        <div class="col-sm-3 p-3">
+            <div class="card mx-2 my-2">
+            <div class="card-body">
+                <img src="{{i.car.image.url}}" class="card-img-top" alt="..." style="height:12rem">
+                <h5 class="card-title mt-2">{{i.car.name}}</h5>
+                <h6>Price : {{i.car.price}}$</h6>
+                <h6>Brand : {{i.car.brand}}</h6>
+                <strong>Order Date:</strong> {{ i.order_date }}<br>
+                <button type="button" class="btn btn-info btn-sm"><a href="{% url 'details_car' i.car.id %}" class="text-decoration-none text-dark">View Details</a></button>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No orders found.</p>
+{% endif %}
+
+{% endblock %}

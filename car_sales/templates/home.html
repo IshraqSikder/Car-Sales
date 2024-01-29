@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+  <div class="col-md-6">
+    <h1>Welcome to CAR HOUSE</h1><br>
+    <p>
+      Navigating the financial aspect of buying a car can be complex. CAR HOUSE is committed to transparency in our financing process. Our finance experts work with you to explore financing options that fit your budget, making the purchasing process straightforward and stress-free. <br>
+      Customer satisfaction is at the heart of what we do. Our friendly and knowledgeable staff is dedicated to providing you with a seamless and enjoyable car-buying experience. From answering your inquiries to guiding you through the process, we're here to make your journey with CAR HOUSE memorable and satisfying.
+    </p>
+  </div>
+  <div class="col-md-6 ps-5 my-3">
+    <img src="{% static 'car.jpeg' %}" style="width:30rem" />
+  </div>
+</div>
+<div class="d-flex flex-wrap justify-content-center py-2" style="background: #d3b8ad">
+  {% for br in brand %}
+      <button class="btn btn-secondary btn-sm mx-5 px-5"><a href="{% url 'brand_wise_car' br.slug %}" class="text-decoration-none text-white">{{br.name}}</a></button>
+  {% endfor %}
+</div>
+<h4 class="container py-2">Total Car Found : {{data|length}}</h4>
+<div class="d-flex flex-wrap" style="background: #d3b8ad">
+  {% for i in data %}
+  <div class="col-sm-3 p-3">
+    <div class="card mx-2 my-2">
+      <div class="card-body">
+        <img src="{{i.image.url}}" class="card-img-top" alt="..." style="height:12rem">
+        <h5 class="card-title mt-2">{{i.name}}</h5>
+        <h6>Price : {{i.price}}$</h6>
+        <h6>Brand : {{i.brand}}</h6>
+        <button type="button" class="btn btn-info btn-sm"><a href="{% url 'details_car' i.id %}" class="text-decoration-none text-dark">View Details</a></button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}
